@@ -1,28 +1,10 @@
 :root {
-  --bg: #0b1020;
+  --bg: #050812;
   --fg: #f5f5f5;
   --accent: #ffb347;
-  --accent-soft: rgba(255, 179, 71, 0.2);
-  --card-bg: rgba(20, 26, 46, 0.95);
-  --border: rgba(255, 255, 255, 0.06);
-}
-
-body[data-theme="warm"] {
-  --bg: #120505;
-  --fg: #fdf4e3;
-  --accent: #ff7b54;
-  --accent-soft: rgba(255, 123, 84, 0.2);
-  --card-bg: rgba(35, 12, 8, 0.96);
-  --border: rgba(255, 244, 227, 0.12);
-}
-
-body[data-theme="cool"] {
-  --bg: #050b18;
-  --fg: #e3f2fd;
-  --accent: #64b5f6;
-  --accent-soft: rgba(100, 181, 246, 0.18);
-  --card-bg: rgba(11, 19, 34, 0.96);
-  --border: rgba(227, 242, 253, 0.12);
+  --accent-soft: rgba(255, 179, 71, 0.18);
+  --card-bg: rgba(13, 18, 32, 0.96);
+  --border: rgba(255, 255, 255, 0.08);
 }
 
 * {
@@ -32,337 +14,152 @@ body[data-theme="cool"] {
 }
 
 body {
+  background: radial-gradient(circle at top, #1a2337 0, var(--bg) 45%);
+  color: var(--fg);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  background: radial-gradient(circle at top, #1b2838 0, var(--bg) 45%);
-  color: var(--fg);
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .app {
-  width: min(980px, 100%);
-  padding: 24px 20px 28px;
+  max-width: 1580px;
+  margin: 18px auto 26px;
+  padding: 0 16px;
 }
 
-.header {
+/* 상단 바 */
+.topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 18px;
-  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.top-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.digital-clock {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.4);
+  font-family: ui-monospace;
+  font-size: 0.9rem;
 }
 
 .title-block h1 {
-  font-size: 1.4rem;
-  margin-bottom: 4px;
+  font-size: 1.2rem;
+  margin-bottom: 2px;
 }
 
 .title-block p {
-  font-size: 0.85rem;
-  opacity: 0.8;
+  font-size: 0.82rem;
+  opacity: 0.75;
 }
 
 .theme-select {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--fg);
   font-size: 0.85rem;
+}
+
+/* 메인 레이아웃 */
+.main-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) 300px;
+  gap: 16px;
+  margin-bottom: 0;
+  padding-bottom: 40px;
+}
+
+.panel {
+  margin-bottom: 0;
+  padding-bottom: 20px;
+}
+
+/* 중앙 장면 영역 */
+.scene-title {
   display: flex;
   align-items: center;
   gap: 6px;
-}
-
-select {
-  background: var(--card-bg);
-  color: var(--fg);
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  padding: 4px 10px;
-  outline: none;
-}
-
-.card {
-  background: var(--card-bg);
-  border-radius: 18px;
-  border: 1px solid var(--border);
-  padding: 16px 16px 18px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(16px);
-}
-
-.mode-tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 14px;
-  flex-wrap: wrap;
-}
-
-.mode-btn {
-  flex: 1 1 120px;
-  padding: 8px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--fg);
-  font-size: 0.9rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: background 0.15s ease, border 0.15s ease, transform 0.05s ease;
-}
-
-.mode-btn span.emoji {
-  font-size: 1.1rem;
-}
-
-.mode-btn.active {
-  background: var(--accent-soft);
-  border-color: var(--accent);
-  transform: translateY(-1px);
-}
-
-.mode-btn:hover {
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.mode-section {
-  display: none;
-  margin-top: 8px;
-}
-
-.mode-section.active {
-  display: block;
-}
-
-/* 공통 타이틀 & 설명 */
-.mode-header {
-  margin-bottom: 10px;
-}
-
-.mode-header h2 {
-  font-size: 1.05rem;
+  font-size: 1rem;
   margin-bottom: 4px;
 }
 
-.mode-header p {
-  font-size: 0.82rem;
-  opacity: 0.8;
-}
-
-/* 불멍 영역 */
-.fire-ascii {
-  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-  font-size: 9px;
-  line-height: 9px;
-  white-space: pre;
-  margin: 0;
-}
-
-.fire-wrapper {
-  position: relative;
-  margin-top: 10px;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: radial-gradient(
-    circle at bottom,
-    #ffb347 0,
-    #ff7a3c 18%,
-    #1b1020 65%
-  );
-  min-height: 260px;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-}
-
-.fire-visual {
-  flex: 2;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-/* (이전 CSS 불 효과 / 장작 관련, 원하면 나중에 지워도 됨) */
-.flame-layer {
-  position: absolute;
-  bottom: -20%;
-  width: 160%;
-  height: 120%;
-  background: radial-gradient(
-    circle at 50% 80%,
-    rgba(255, 255, 255, 0.9),
-    rgba(255, 213, 128, 0.8),
-    rgba(255, 120, 64, 0.2),
-    transparent 70%
-  );
-  opacity: 0.9;
-  mix-blend-mode: screen;
-  filter: blur(6px);
-  animation: flicker 2s infinite ease-in-out alternate;
-}
-
-.flame-layer:nth-child(2) {
-  animation-duration: 1.5s;
-  animation-direction: alternate-reverse;
-  opacity: 0.65;
-  transform: scaleX(1.1);
-}
-
-.flame-layer:nth-child(3) {
-  animation-duration: 2.8s;
-  opacity: 0.45;
-  transform: scaleX(0.9);
-}
-
-@keyframes flicker {
-  0% {
-    transform: translateX(-4px) scaleY(1);
-  }
-  50% {
-    transform: translateX(3px) scaleY(1.12);
-  }
-  100% {
-    transform: translateX(-3px) scaleY(1.05);
-  }
-}
-
-/* 장작 */
-.logs {
-  position: relative;
-  width: 140px;
-  height: 30px;
-  margin-bottom: 24px;
-}
-
-.log {
-  position: absolute;
-  width: 120px;
-  height: 18px;
-  background: linear-gradient(90deg, #3b2a23, #5a3b2a);
-  border-radius: 20px;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%) rotate(-7deg);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-}
-
-.log:nth-child(2) {
-  transform: translateX(-50%) rotate(9deg);
-  top: 8px;
-}
-
-.fire-info {
-  flex: 1.25;
-  padding: 16px 16px 14px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: radial-gradient(
-    circle at top left,
-    rgba(0, 0, 0, 0.35) 0,
-    transparent 45%
-  );
-  color: #fffdf7;
-}
-
-.fire-text {
-  font-size: 0.88rem;
-  line-height: 1.4;
-  opacity: 0.9;
-}
-
-.breathe-tip {
-  font-size: 0.8rem;
-  margin-top: 8px;
-  opacity: 0.85;
-}
-
-.breathe-bar {
-  margin-top: 12px;
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.35);
-  overflow: hidden;
-}
-
-.breathe-fill {
-  width: 0;
-  height: 100%;
-  background: linear-gradient(90deg, #ffd54f, #ff8a65);
-  animation: breathe 10s infinite;
-}
-
-@keyframes breathe {
-  0% {
-    width: 10%;
-  }
-  25% {
-    width: 70%;
-  }
-  50% {
-    width: 80%;
-  }
-  100% {
-    width: 15%;
-  }
-}
-
-.fire-cta {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 0.8rem;
-  opacity: 0.9;
-}
-
-/* 타이머 & 스톱워치 공통 */
-.timer-grid {
-  display: grid;
-  grid-template-columns: 1.3fr 1.7fr;
-  gap: 12px;
-  margin-top: 8px;
-  align-items: start;
-}
-
-@media (max-width: 720px) {
-  .timer-grid {
-    grid-template-columns: 1fr;
-  }
-  .fire-wrapper {
-    flex-direction: column;
-  }
-}
-
-.display-box {
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  padding: 16px 14px;
-  background: radial-gradient(
-    circle at top,
-    rgba(255, 255, 255, 0.04) 0,
-    transparent 55%
-  );
-}
-
-.time-display {
-  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-  font-size: 1.8rem;
-  letter-spacing: 0.08em;
-  text-align: center;
+.scene-subtitle {
+  font-size: 0.85rem;
+  opacity: 0.78;
   margin-bottom: 8px;
 }
 
-.label {
-  font-size: 0.78rem;
+.scene-canvas {
+  width: 100%;
+  height: calc(100vh - 240px);
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  opacity: 0.75;
+  transition: background 0.8s ease;
+}
+
+/* 오른쪽 컨트롤 */
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.control-card {
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  padding: 10px 10px 12px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.control-card h2 {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.label {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-bottom: 6px;
+}
+
+.timer-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.timer-inputs input {
+  width: 52px;
+  padding: 4px 6px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--fg);
+  text-align: center;
+}
+
+.time-display {
+  font-family: ui-monospace;
+  font-size: 1.6rem;
+  text-align: center;
   margin-bottom: 6px;
 }
 
@@ -371,174 +168,166 @@ select {
   flex-wrap: wrap;
   gap: 6px;
   justify-content: center;
-  margin-top: 6px;
 }
 
-button.control-btn {
-  padding: 6px 12px;
+.control-btn {
+  padding: 6px 10px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.03);
   color: var(--fg);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   cursor: pointer;
-  transition: background 0.12s ease, border 0.12s ease, transform 0.05s ease;
 }
 
-button.control-btn.primary {
+.control-btn.primary {
   border-color: var(--accent);
   background: var(--accent-soft);
 }
 
-button.control-btn:hover {
-  background: rgba(255, 255, 255, 0.06);
-  transform: translateY(-1px);
-}
-
-button.control-btn:disabled {
-  opacity: 0.5;
-  cursor: default;
-  transform: none;
-}
-
-.timer-inputs {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  margin-top: 8px;
-  font-size: 0.85rem;
-}
-
-.timer-inputs input {
-  width: 52px;
-  padding: 4px 6px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.25);
-  color: var(--fg);
-  font-family: inherit;
-  font-size: 0.85rem;
-  text-align: center;
-  outline: none;
-}
-
-.hint {
-  font-size: 0.78rem;
-  opacity: 0.75;
-  margin-top: 4px;
-  text-align: center;
-}
-
-.sub-card {
-  border-radius: 14px;
-  border: 1px dashed var(--border);
-  padding: 10px 10px 12px;
-  font-size: 0.82rem;
-  opacity: 0.9;
-}
-
-.sub-card h3 {
-  font-size: 0.85rem;
-  margin-bottom: 4px;
-}
-
-.laps {
-  margin-top: 8px;
-  max-height: 130px;
-  overflow-y: auto;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-  font-size: 0.78rem;
-}
-
-.lap-line {
-  display: flex;
-  justify-content: space-between;
-  padding: 2px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-/* ============================= */
-/* 디톡스 세션 풀스크린 오버레이 */
-/* ============================= */
-.detox-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.9);
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.detox-hidden {
-  display: none;
-}
-
-.detox-content {
-  max-width: 420px;
-  padding: 24px 20px 26px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: radial-gradient(
-    circle at top,
-    rgba(255, 255, 255, 0.05) 0,
-    #12121a 55%
-  );
-  text-align: center;
-  color: #fdfdfd;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-}
-
-.detox-title {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-}
-
-.detox-timer {
-  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-  font-size: 2.6rem;
-  letter-spacing: 0.1em;
-  margin-bottom: 12px;
-}
-
-.detox-msg {
-  font-size: 0.9rem;
-  opacity: 0.85;
-  margin-bottom: 16px;
-}
-
-/* 디톡스 시작 버튼 감싸기 */
-.detox-start-wrap {
-  margin-top: 8px;
-  text-align: center;
-}
-
-/* ============================= */
-/* 배경 사운드 컨트롤             */
-/* ============================= */
-.sound-controls {
-  margin-top: 14px;
-  padding-top: 10px;
-  border-top: 1px dashed rgba(255, 255, 255, 0.18);
-  font-size: 0.8rem;
-}
-
-.sound-label {
-  margin-bottom: 4px;
-  opacity: 0.9;
+.full-width {
+  width: 100%;
 }
 
 .sound-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 4px;
 }
 
 .sound-btn.active {
   border-color: var(--accent);
   background: var(--accent-soft);
+}
+
+.lock-status {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+/* ===== 왼쪽 자동 숨김 사이드바 ===== */
+
+.floating-sidebar-left {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 72px;
+
+  padding: 60px 8px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  background: rgba(5, 10, 20, 0.98);
+  box-shadow: 6px 0 18px rgba(0, 0, 0, 0.45);
+
+  /* 기본: 화면 밖으로 거의 빠져 있음 (자동 숨김) */
+  transform: translateX(-52px);
+  transition: transform 0.25s ease-out;
+
+  z-index: 60;
+}
+
+/* 마우스를 올리면 자동으로 튀어나옴 */
+.floating-sidebar-left:hover {
+  transform: translateX(0);
+}
+
+.sidebar-grip {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #c5c5c5;
+  margin-bottom: 12px;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.side-theme-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.side-theme-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(-2px);
+}
+
+.side-theme-btn.active {
+  background: rgba(255, 179, 71, 0.22);
+  box-shadow: 0 0 0 2px rgba(255, 179, 71, 0.85);
+}
+
+/* ===== 디톡스 세션 모달 ===== */
+
+.detox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+/* 보여줄 때 붙일 클래스 */
+.detox-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.detox-dialog {
+  width: min(420px, 90vw);
+  padding: 24px 20px 22px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: radial-gradient(circle at top, #262633 0, #090910 70%);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  color: #fdfdfd;
+}
+
+.detox-title {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.detox-time {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 2.6rem;
+  letter-spacing: 0.25em;
+  margin-bottom: 16px;
+}
+
+.detox-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  opacity: 0.9;
+  margin-bottom: 18px;
+}
+
+.detox-end-btn {
+  width: 100%;
+  justify-content: center;
 }

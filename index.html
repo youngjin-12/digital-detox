@@ -2,207 +2,128 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <title>디지털 디톡스 허브</title>
+    <title>디지털 디톡스 데모</title>
+    <!-- 분리된 CSS -->
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-theme="warm">
+
+  <body>
     <div class="app">
-      <header class="header">
-        <div class="title-block">
-          <h1>디지털 디톡스 허브</h1>
-          <p>
-            멍때리기 불멍 · 타이머 · 스톱워치로 잠깐이라도 스크린에서 한 발
-            떨어지기
-          </p>
+      <!-- 상단 바 -->
+      <header class="topbar">
+        <div class="top-left">
+          <div class="digital-clock">
+            🕒 <span id="digitalClock">00:00:00</span>
+          </div>
+          <div class="title-block">
+            <h1>디지털 디톡스 허브 (데모)</h1>
+            <p>불멍 · 물멍 · 빗소리 · 버블 · 눈 · 낙엽 · 성애</p>
+          </div>
         </div>
-        <div class="theme-select">
-          테마
-          <select id="themeSelect">
-            <option value="warm">따뜻한 불멍</option>
-            <option value="dark">다크 모드</option>
-            <option value="cool">차분한 블루</option>
-          </select>
-        </div>
+
+        <select class="theme-select">
+          <option>불멍 테마</option>
+          <option>차분한 블루</option>
+          <option>다크 모드</option>
+        </select>
       </header>
 
-      <div class="card">
-        <!-- 모드 선택 탭 -->
-        <div class="mode-tabs">
-          <button class="mode-btn active" data-mode="fire">
-            <span class="emoji">🔥</span><span>불멍 멍때리기</span>
-          </button>
-          <button class="mode-btn" data-mode="timer">
-            <span class="emoji">⏰</span><span>타이머</span>
-          </button>
-          <button class="mode-btn" data-mode="stopwatch">
-            <span class="emoji">⏱️</span><span>스톱워치</span>
-          </button>
-        </div>
-
-        <!-- 불멍 모드 -->
-        <section id="mode-fire" class="mode-section active">
-          <div class="mode-header">
-            <h2>🔥 불멍 디지털 디톡스</h2>
-            <p>
-              아무것도 안 해도 괜찮은 시간. 그냥 불빛과 호흡만 바라보는
-              모드입니다.
-            </p>
+      <!-- 메인 2열 -->
+      <main class="main-layout">
+        <!-- 가운데 장면 -->
+        <section class="panel">
+          <div class="scene-title">
+            <span id="currentThemeEmoji">🔥</span>
+            <span id="currentThemeName">불멍</span>
           </div>
-          <div class="fire-wrapper">
-            <div class="fire-visual">
-              <!-- 파이썬 불멍 알고리즘을 웹에서 ASCII로 그려주는 영역 -->
-              <pre id="fireCanvas" class="fire-ascii"></pre>
-            </div>
+          <div class="scene-subtitle" id="currentThemeSubtitle">
+            장작불 앞에서 조용히 호흡만 느껴보세요.
+          </div>
 
-            <div class="fire-info">
-              <div>
-                <div class="fire-text">
-                  눈을 잠깐 감고, 불빛이 깜빡이는 리듬에 맞춰서
-                  <strong>4초 들이마시고 · 4초 멈추고 · 6초 내쉬기</strong>를
-                  반복해 보세요.
-                </div>
-                <div class="breathe-tip">
-                  타이머나 스톱워치를 쓰고 싶다면 위의 탭에서 원하는 기능으로
-                  언제든지 이동할 수 있습니다.
-                </div>
-                <div class="breathe-bar">
-                  <div class="breathe-fill"></div>
-                </div>
-              </div>
-
-              <div class="fire-cta">
-                <div>💡 팁</div>
-                <ul style="margin-left: 14px; margin-top: 2px">
-                  <li>
-                    2~3분이라도 멍때리면 뇌가 리셋되는 느낌을 받을 수 있어요.
-                  </li>
-                  <li>
-                    알람이 필요하면 ⏰ 타이머 탭에서 시간을 설정한 뒤, 다시 이
-                    화면으로 돌아와도 됩니다.
-                  </li>
-                </ul>
-              </div>
-
-              <!-- 🎵 배경 사운드 컨트롤 -->
-              <div class="sound-controls">
-                <div class="sound-label">🎵 배경 소리</div>
-                <div class="sound-buttons">
-                  <button class="control-btn sound-btn" data-sound="none">
-                    끄기
-                  </button>
-                  <button class="control-btn sound-btn" data-sound="fire">
-                    불멍
-                  </button>
-                  <button class="control-btn sound-btn" data-sound="rain">
-                    빗소리
-                  </button>
-                  <button class="control-btn sound-btn" data-sound="forest">
-                    숲소리
-                  </button>
-                </div>
-              </div>
-            </div>
+          <div id="sceneCanvas" class="scene-canvas">
+            선택한 테마에 맞는 애니메이션을 여기 표시
           </div>
         </section>
 
-        <!-- 타이머 모드 -->
-        <section id="mode-timer" class="mode-section">
-          <div class="mode-header">
+        <!-- 오른쪽 컨트롤 -->
+        <aside class="control-panel">
+          <section class="control-card">
             <h2>⏰ 타이머</h2>
-            <p>
-              디지털 디톡스 시간(예: 3분 멍때리기, 10분 휴식)을 설정해두고
-              알람으로 알려줍니다.
+            <div class="label">디톡스 시간 설정</div>
+            <div class="timer-inputs">
+              <input id="timerMin" type="number" placeholder="분" />
+              :
+              <input id="timerSec" type="number" placeholder="초" />
+            </div>
+            <div id="timerDisplay" class="time-display">00:00</div>
+            <div class="controls">
+              <!-- 👇 id 추가 -->
+              <button id="timerStartBtn" class="control-btn primary">
+                시작
+              </button>
+              <button id="timerPauseBtn" class="control-btn">일시정지</button>
+              <button id="timerResetBtn" class="control-btn">초기화</button>
+            </div>
+          </section>
+
+          <section class="control-card">
+            <h2>🎵 배경 소리</h2>
+            <div class="label">백색소음 / 자연음</div>
+            <div class="sound-buttons">
+              <button class="control-btn sound-btn" data-sound="none">
+                끄기
+              </button>
+              <button class="control-btn sound-btn" data-sound="soft">
+                잔잔하게
+              </button>
+              <button class="control-btn sound-btn" data-sound="focus">
+                집중용
+              </button>
+              <button class="control-btn sound-btn" data-sound="deep">
+                깊은 휴식
+              </button>
+            </div>
+          </section>
+
+          <section class="control-card">
+            <h2>🔒 디톡스 잠금</h2>
+            <p class="label">
+              전체 화면으로 전환 후 타이머 종료 시까지 유지합니다.
             </p>
-          </div>
-          <div class="timer-grid">
-            <div class="display-box">
-              <div class="label">남은 시간</div>
-              <div id="timerDisplay" class="time-display">00:00</div>
-              <div class="timer-inputs">
-                <input
-                  id="timerMin"
-                  type="number"
-                  min="0"
-                  max="999"
-                  placeholder="분"
-                />
-                :
-                <input
-                  id="timerSec"
-                  type="number"
-                  min="0"
-                  max="59"
-                  placeholder="초"
-                />
-              </div>
-              <div class="hint">시간을 입력한 뒤 시작을 누르세요.</div>
-              <div class="controls">
-                <button id="timerStart" class="control-btn primary">
-                  시작
-                </button>
-                <button id="timerPause" class="control-btn">일시정지</button>
-                <button id="timerReset" class="control-btn">초기화</button>
-              </div>
-              <!-- 🔥 이 시간으로 디톡스 세션 시작 버튼 -->
-              <div class="detox-start-wrap">
-                <button id="detoxStart" class="control-btn">
-                  이 시간으로 디톡스 세션 시작
-                </button>
-              </div>
-            </div>
-            <div class="sub-card">
-              <h3>사용 예시</h3>
-              <ul style="margin-left: 16px">
-                <li>3분 불멍 · 10분 스트레칭 · 25분 포모도로 집중 시간 등</li>
-                <li>
-                  타이머가 끝나면 브라우저에서 짧은 알람 소리 + 알림이 뜹니다.
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
+            <!-- 👇 버튼과 상태에 id 추가 -->
+            <button id="detoxLockBtn" class="control-btn primary full-width">
+              디톡스 잠금 시작
+            </button>
+            <div id="lockStatus" class="lock-status">상태: 대기 중</div>
+          </section>
+        </aside>
+      </main>
+    </div>
 
-        <!-- 스톱워치 모드 -->
-        <section id="mode-stopwatch" class="mode-section">
-          <div class="mode-header">
-            <h2>⏱️ 스톱워치</h2>
-            <p>
-              디톡스 혹은 집중 시간이 실제로 얼마나 흘렀는지 재는 용도입니다.
-            </p>
-          </div>
-          <div class="timer-grid">
-            <div class="display-box">
-              <div class="label">경과 시간</div>
-              <div id="swDisplay" class="time-display">00:00.0</div>
-              <div class="controls">
-                <button id="swStart" class="control-btn primary">시작</button>
-                <button id="swPause" class="control-btn">일시정지</button>
-                <button id="swReset" class="control-btn">리셋</button>
-                <button id="swLap" class="control-btn">랩</button>
-              </div>
-            </div>
-            <div class="sub-card">
-              <h3>랩 기록</h3>
-              <div id="swLaps" class="laps"></div>
-            </div>
-          </div>
-        </section>
-      </div>
+    <!-- 왼쪽 자동 숨김 테마 사이드바 -->
+    <div class="floating-sidebar-left" id="themeSidebar">
+      <div class="sidebar-grip">≡</div>
+      <button class="side-theme-btn" data-key="fire">🔥</button>
+      <button class="side-theme-btn" data-key="water">💧</button>
+      <button class="side-theme-btn" data-key="rain">🌧</button>
+      <button class="side-theme-btn" data-key="bubble">🫧</button>
+      <button class="side-theme-btn" data-key="snow">❄️</button>
+      <button class="side-theme-btn" data-key="leaf">🍂</button>
+      <button class="side-theme-btn" data-key="frost">🧊</button>
+    </div>
 
-      <!-- 🔊 배경 사운드 플레이어 -->
-      <audio id="bgSound" loop></audio>
-
-      <!-- 🧘 디톡스 세션 풀스크린 오버레이 -->
-      <div id="detoxOverlay" class="detox-overlay detox-hidden">
-        <div class="detox-content">
-          <div class="detox-title">디지털 디톡스 세션</div>
-          <div id="detoxTimer" class="detox-timer">00:00</div>
-          <div class="detox-msg">
-            지금은 멍때리는 시간입니다.<br />
-            화면에서 눈을 떼고, 호흡에만 집중해 보세요.
-          </div>
-          <button id="detoxEndBtn" class="control-btn">세션 종료</button>
-        </div>
+    <!-- 디지털 디톡스 세션 모달 -->
+    <div id="detoxOverlay" class="detox-overlay">
+      <div class="detox-dialog">
+        <div class="detox-title">디지털 디톡스 세션</div>
+        <div id="detoxOverlayTime" class="detox-time">00:00</div>
+        <p class="detox-text">
+          지금은 멍때리는 시간입니다.<br />
+          화면에서 눈을 떼고, 호흡에만 집중해 보세요.
+        </p>
+        <button id="detoxEndBtn" class="control-btn primary detox-end-btn">
+          세션 종료
+        </button>
       </div>
     </div>
 
